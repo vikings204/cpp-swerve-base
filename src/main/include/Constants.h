@@ -3,6 +3,7 @@
 #include <units/length.h>
 #include <units/velocity.h>
 #include <units/angle.h>
+#include <units/acceleration.h>
 #include <math.h>
 #include <frc/kinematics/SwerveDriveKinematics.h>
 #include <frc/geometry/Translation2d.h>
@@ -16,7 +17,8 @@ namespace Constants {
     namespace Controller {
         const int DRIVER_PORT = 1;
         const int OPERATOR_PORT = 2;
-        const float DEADBAND = 0.1;
+        //const float DEADBAND = 0.1;
+        const double DEADBAND = 0.1;
 
         // will eventually have keybinds and stuff
     }
@@ -50,9 +52,10 @@ namespace Constants {
         const float DRIVE_PID_I = 0.0;
         const float DRIVE_PID_D = 0.01;
         const float DRIVE_PID_FF = 0.0;
-        const float DRIVE_FF_S = 0.667;
-        const float DRIVE_FF_V = 2.44;
-        const float DRIVE_FF_A = 0.27;
+        const units::volt_t DRIVE_FF_S {0.667};
+        const units::unit_t<units::compound_unit<units::volts, units::inverse<units::meters_per_second>>> DRIVE_FF_V {2.44};
+        const units::unit_t<units::compound_unit<units::volts, units::inverse<units::meters_per_second_squared>>> DRIVE_FF_A {0.27};
+        // static constexpr auto DRIVE_FF_A = 0.27_V / 1_mps;
         const float ANGLE_PID_P = 0.01;
         const float ANGLE_PID_I = 0.0;
         const float ANGLE_PID_D = 0.0;
@@ -86,7 +89,7 @@ namespace Constants {
 
         /* Swerve Profiling Values */
         const units::meters_per_second_t MAX_SPEED {4.5}; // meters per second
-        const float MAX_ANGULAR_VELOCITY = 8; // radians per second
+        const units::radians_per_second_t MAX_ANGULAR_VELOCITY {8}; // radians per second
 
         /* Neutral Modes */
         const rev::CANSparkBase::IdleMode DRIVE_IDLE_MODE = rev::CANSparkBase::IdleMode::kBrake;

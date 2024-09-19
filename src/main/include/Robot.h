@@ -1,12 +1,9 @@
 #pragma once
 
-#include <string>
 #include <optional>
 
 #include <frc/TimedRobot.h>
-#include <frc/smartdashboard/SendableChooser.h>
 #include <frc2/command/CommandPtr.h>
-#include <frc/DriverStation.h>
 
 #include "RobotContainer.h"
 
@@ -25,23 +22,7 @@ public:
     void SimulationInit() override;
     void SimulationPeriodic() override;
 
-	enum ControlMode {
-		SINGLE, COMPETITION
-	};
-
-	enum AutoMode {
-
-	};
-
-	frc::SendableChooser<ControlMode> ControlModeChooser;
-	frc::SendableChooser<AutoMode> AutoModeChooser;
-
-	frc::DriverStation::Alliance alliance;
-	std::string allianceString = "never init";
-
 private:
 	std::optional<frc2::CommandPtr> autonomousCommand;
 	RobotContainer robotContainer;
-
-	void CheckDriverStationUpdate();
 };
