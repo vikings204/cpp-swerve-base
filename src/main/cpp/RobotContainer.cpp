@@ -11,8 +11,8 @@
 #include "commands/TeleopSwerveCommand.h"
 
 RobotContainer::RobotContainer() {
-	ControlModeChooser.AddOption("Single Controller (Driver:usb1 Operator:usb1)", ControlMode::SINGLE);
-	ControlModeChooser.SetDefaultOption("Competition (Driver:usb1 Operator:usb2)", ControlMode::COMPETITION);
+	ControlModeChooser.AddOption("Single Controller (Driver:usb1 Operator:usb1)", ControlMode::COMPETITION);
+	ControlModeChooser.SetDefaultOption("Competition (Driver:usb1 Operator:usb2)", ControlMode::SINGLE);
 	frc::Shuffleboard::GetTab("main").Add("control mode", ControlModeChooser).WithWidget(frc::BuiltInWidgets::kSplitButtonChooser).WithSize(2, 1);
     finalSpeedModifierEntry = frc::Shuffleboard::GetTab("config").Add("final speed modifier", 1.0).WithWidget(frc::BuiltInWidgets::kNumberSlider).WithProperties({{"min", nt::Value::MakeDouble(0)},{"max", nt::Value::MakeDouble(1)}}).GetEntry();
 

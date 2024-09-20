@@ -12,6 +12,7 @@ angleMotor{_angleMotorID, rev::CANSparkMax::MotorType::kBrushless},
 driveMotor{_driveMotorID, rev::CANSparkMax::MotorType::kBrushless},
 driveEncoder{driveMotor.GetEncoder()},
 integratedAngleEncoder{angleMotor.GetEncoder()},
+angleEncoder{angleMotor.GetAnalog(rev::SparkAnalogSensor::Mode::kAbsolute)},
 driveController{driveMotor.GetPIDController()},
 angleController{angleMotor.GetPIDController()},
 feedforward{DRIVE_FF_S, DRIVE_FF_V, DRIVE_FF_A}
@@ -28,7 +29,7 @@ feedforward{DRIVE_FF_S, DRIVE_FF_V, DRIVE_FF_A}
         {"min", nt::Value::MakeDouble(0)},
         {"max", nt::Value::MakeDouble(360)}
     });
-    frc::Shuffleboard::GetTab("swervetest").AddNumber("angleMotorAbsEncoder Reading " + moduleNumber, [this] {return angleMotor.GetAnalog(rev::SparkAnalogSensor::Mode::kAbsolute).GetVoltage();});
+    frc::Shuffleboard::GetTab("swervetest").AddNumber("angleMotorAbsEncoder Reading " + moduleNumber, [this] {return angleEncoder.GetVoltage();});
 }
 
 void SwerveModule::ConfigAngleMotor() {
@@ -93,7 +94,7 @@ void SwerveModule::SetDesiredState(frc::SwerveModuleState desiredState, bool isO
 }
 
 void SwerveModule::ResetToAbsolute() {
-    float absolutePosition = angleMotor.GetAnalog(rev::SparkAnalogSensor::Mode::kAbsolute).GetPosition() - angleOffset.Degrees().value();
+    float absolutePosition = angleEncoder.GetPosition() - angleOffset.Degrees().value();
     std::cout << "Encoder" + std::to_string(moduleNumber) + "Absolute Position: " + std::to_string(absolutePosition);    
     std::cout << "Encoder " + std::to_string(moduleNumber) + " is Zerod";
     integratedAngleEncoder.SetPosition(0.0);

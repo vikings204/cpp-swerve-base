@@ -30,6 +30,7 @@ private:
     rev::CANSparkMax angleMotor;
     rev::SparkRelativeEncoder driveEncoder;
     rev::SparkRelativeEncoder integratedAngleEncoder;
+    rev::SparkAnalogSensor angleEncoder;
     rev::SparkPIDController driveController;
     rev::SparkPIDController angleController;
     frc::SimpleMotorFeedforward<units::meters> feedforward;
